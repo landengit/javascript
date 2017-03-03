@@ -305,7 +305,7 @@
 ```
 * * *
 ## 字符串
-* __对字符串使用单引号`\`\``__
+* __对字符串使用单引号`''`__
 ```javascript
     // bad
     const name = "Capt. Janeway";
@@ -315,6 +315,22 @@
 
     // good
     const name = 'Capt. Janeway';
+```
+* __字符串过长时应该换行__
+```javascript
+// bad
+const errorMessage = 'This is a super long error that was thrown because \
+of Batman. When you stop to think about how Batman had anything to do \
+with this, you would get nowhere \
+fast.';
+
+// bad
+const errorMessage = 'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had anything to do with this, you would get nowhere fast.';
+
+// good
+const errorMessage = 'This is a super long error that was thrown because ' +
+  'of Batman. When you stop to think about how Batman had anything to do ' +
+  'with this, you would get nowhere fast.';
 ```
 
 
