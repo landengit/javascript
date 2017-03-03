@@ -62,6 +62,7 @@
     console.log(a); // ReferenceError
     console.log(b); // ReferenceError
 ```
+* * * 
 ### 对象
 * __使用字面量创建对象__
 ```javascript
@@ -164,16 +165,91 @@
     const { a, ...noA } = copy; // noA => { b: 2, c: 3 }
 ```
 * * * 
+### 数组
+* __使用字面量创建对象__
+```javascript
+    // bad
+    const items = new Array();
 
+    // good
+    const items = [];
+```
+* __使用`push`代替根据下标添加值__
+```javascript
+    const someStack = [];
 
+    // bad
+    someStack[someStack.length] = 'abracadabra';
 
+    // good
+    someStack.push('abracadabra');
+```
+* __复制数组使用ES6的`...`__
+```javascript
+    // bad
+    const len = items.length;
+    const itemsCopy = [];
+    let i;
 
+    for (i = 0; i < len; i += 1) {
+      itemsCopy[i] = items[i];
+    }
 
+    // good
+    const itemsCopy = [...items];
+```
+* __使用`Array.from`来转换类数组(伪数组)__
+```javascript
+    const foo = document.querySelectorAll('.foo');
+    const nodes = Array.from(foo);
+```
+* __循环时正确的写法__
+```javascript
+    // good 
+    [1, 2, 3].map((x) => {
+      const y = x + 1;
+      return x * y;
+    });
 
+    // good 
+    [1, 2, 3].map(x => x + 1);
 
+    // bad
+    const flat = {};
+    [[0, 1], [2, 3], [4, 5]].reduce((memo, item, index) => {
+      const flatten = memo.concat(item);
+      flat[index] = flatten;
+    });
 
+    // good
+    const flat = {};
+    [[0, 1], [2, 3], [4, 5]].reduce((memo, item, index) => {
+      const flatten = memo.concat(item);
+      flat[index] = flatten;
+      return flatten;
+    });
 
+    // bad
+    inbox.filter((msg) => {
+      const { subject, author } = msg;
+      if (subject === 'Mockingbird') {
+        return author === 'Harper Lee';
+      } else {
+        return false;
+      }
+    });
 
+    // good
+    inbox.filter((msg) => {
+      const { subject, author } = msg;
+      if (subject === 'Mockingbird') {
+        return author === 'Harper Lee';
+      }
+
+      return false;
+    });
+```
+* * *
 
 
 
