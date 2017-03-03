@@ -250,9 +250,72 @@
     });
 ```
 * * *
+## 重构
+* __使用对象的自动拆包__
+```javascript
+    // bad
+    function getFullName(user) {
+      const firstName = user.firstName;
+      const lastName = user.lastName;
 
+      return `${firstName} ${lastName}`;
+    }
 
+    // good
+    function getFullName(user) {
+      const { firstName, lastName } = user;
+      return `${firstName} ${lastName}`;
+    }
 
+    // best
+    function getFullName({ firstName, lastName }) {
+      return `${firstName} ${lastName}`;
+    }
+```
+* __使用数组的自动拆包__
+```javascript
+    const arr = [1, 2, 3, 4];
+
+    // bad
+    const first = arr[0];
+    const second = arr[1];
+
+    // good
+    const [first, second] = arr;
+```
+* __返回对象使用装包时,使用对象转包,不要使用数组__
+```javascript
+    // bad
+    function processInput(input) {
+      // then a miracle occurs
+      return [left, right, top, bottom];
+    }
+
+    // the caller needs to think about the order of return data
+    const [left, __, top] = processInput(input);
+
+    // good
+    function processInput(input) {
+      // then a miracle occurs
+      return { left, right, top, bottom };
+    }
+
+    // the caller selects only the data they need
+    const { left, top } = processInput(input);
+```
+* * *
+## 字符串
+* __对字符串使用单引号`\`\``__
+```javascript
+    // bad
+    const name = "Capt. Janeway";
+
+    // bad - template literals should contain interpolation or newlines
+    const name = `Capt. Janeway`;
+
+    // good
+    const name = 'Capt. Janeway';
+```
 
 
 
