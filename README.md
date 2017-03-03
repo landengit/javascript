@@ -62,6 +62,28 @@
     console.log(a); // ReferenceError
     console.log(b); // ReferenceError
 ```
+### 对象
+* __使用字面量创建对象__
+```javascript
+    // bad
+    const item = new Object();
+
+    // good
+    const item = {};
+```
+* __对象方法简写__
+```javascript
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
