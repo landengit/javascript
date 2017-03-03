@@ -29,9 +29,9 @@
 
     console.log(foo[0], bar[0]); // => 9, 9
 ```
-- - -
+* * *
 
-### 引用
+### 变量及常量
 * __let__
 ```javascript
     // bad
