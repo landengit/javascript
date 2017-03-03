@@ -2,11 +2,11 @@
 
 ### 类型
 * __值类型__
-  * string
-  * number
-  * boolean
-  * void
-  * undefined
+  * `string`
+  * `number`
+  * `boolean`
+  * `void`
+  * `undefined`
   
 ```
     const foo = 1;
