@@ -318,25 +318,87 @@
 ```
 * __字符串过长时应该换行__
 ```javascript
-// bad
-const errorMessage = 'This is a super long error that was thrown because \
-of Batman. When you stop to think about how Batman had anything to do \
-with this, you would get nowhere \
-fast.';
+    // bad
+    const errorMessage = 'This is a super long error that was thrown because \
+    of Batman. When you stop to think about how Batman had anything to do \
+    with this, you would get nowhere \
+    fast.';
 
-// bad
-const errorMessage = 'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had anything to do with this, you would get nowhere fast.';
+    // bad
+    const errorMessage = 'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had anything to do with this, you would get nowhere fast.';
 
-// good
-const errorMessage = 'This is a super long error that was thrown because ' +
-  'of Batman. When you stop to think about how Batman had anything to do ' +
-  'with this, you would get nowhere fast.';
+    // good
+    const errorMessage = 'This is a super long error that was thrown because ' +
+      'of Batman. When you stop to think about how Batman had anything to do ' +
+      'with this, you would get nowhere fast.';
 ```
+* __变量替换使用`${}`__
+```javascript
+    // bad
+    function sayHi(name) {
+      return 'How are you, ' + name + '?';
+    }
 
+    // bad
+    function sayHi(name) {
+      return ['How are you, ', name, '?'].join();
+    }
 
+    // bad
+    function sayHi(name) {
+      return `How are you, ${ name }?`;
+    }
 
+    // good
+    function sayHi(name) {
+      return `How are you, ${name}?`;
+    }
+```
+* __引号替换__
+```javascript
+    // bad
+    const foo = '\'this\' \i\s \"quoted\"';
 
+    // good
+    const foo = '\'this\' is "quoted"';
+    const foo = `my name is '${name}'`;
+```
+* * *
+## 函数
+* __函数声明__
+```javascript
+    // 匿名函数表达式
+    var anonymous = function() {
+      return true;
+    };
 
+    // 有名函数表达式
+    var named = function named() {
+      return true;
+    };
+
+    // 立即调用函数表达式
+    (function() {
+      console.log('Welcome to the Internet. Please follow me.');
+    })();
+```
+* __不要在代码块里定义方法__
+```javascript
+    // bad
+    if (currentUser) {
+      function test() {
+        console.log('Nope.');
+      }
+    }
+
+    // good
+    let test;
+    if (currentUser) {
+      test = () => {
+        console.log('Yup.');
+      };
+    }
+```
 
 
 
