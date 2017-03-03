@@ -28,3 +28,40 @@
     bar[0] = 9;
 
     console.log(foo[0], bar[0]); // => 9, 9
+```
+- - -
+
+### 引用
+* __let__
+```javascript
+    // bad
+    var a = 1;
+    var b = 2;
+
+    // good
+    const a = 1;
+    const b = 2;
+```
+* __const__
+```javascript
+    // bad
+    var a = 1;
+    var b = 2;
+
+    // good
+    const a = 1;
+    const b = 2;
+```
+* __使用let和const来防止越权__
+```javascript
+    // const and let only exist in the blocks they are defined in.
+    {
+      let a = 1;
+      const b = 1;
+    }
+    console.log(a); // ReferenceError
+    console.log(b); // ReferenceError
+```
+
+
+
