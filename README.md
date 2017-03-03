@@ -8,8 +8,8 @@
   * `void`
   * `undefined`
   
-```
-    const foo = 1;
+```javascript
+    const foo = 1;
     let bar = foo;
 
     bar = 9;
