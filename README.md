@@ -1,6 +1,6 @@
 # javascript 规范
 
-## 类型 `Types`
+## 类型
 * __值类型__
   * `string`
   * `number`
@@ -31,7 +31,7 @@
 ```
 * * *
 
-## 变量及常量 `References`
+## 变量及常量
 * __let__
 ```javascript
     // bad
@@ -63,7 +63,7 @@
     console.log(b); // ReferenceError
 ```
 * * * 
-## 对象 `Objects`
+## 对象
 * __使用字面量创建对象__
 ```javascript
     // bad
@@ -165,7 +165,7 @@
     const { a, ...noA } = copy; // noA => { b: 2, c: 3 }
 ```
 * * * 
-## 数组 `Arrays`
+## 数组
 * __使用字面量创建对象__
 ```javascript
     // bad
