@@ -1,9 +1,23 @@
 # javascript 规范
 
 ## 目录
-1、[类型](#类型)
+1. [类型](#types)
+1. [变量及常量](#references)
+1. [对象](#objects)
+1. [数组](#arrays)
+1. [自动拆装箱](#autoboxing)
+1. [字符串](#strings)
+1. [函数](#functions)
+1. [箭头函数](#arrowFunctions)
+1. [类](#classes)
+1. [模块](#modules)
+1. [集合](#collections)
+1. [常用简写](#logogram)
+1. [格式](#format)
+1. [注释](#comments)
 
-### <span>类型</span>
+
+### <a name='types'>类型</a>
 * __值类型__
   * `string`
   * `number`
@@ -34,7 +48,7 @@
 ```
 * * *
 
-### 变量及常量
+### <a name='references'>变量及常量</a>
 * __let__
 ```javascript
     // bad
@@ -100,7 +114,7 @@
     }
 ```
 * * * 
-### 对象
+### <a name='objects'>对象</a>
 * __使用字面量创建对象__
 ```javascript
     // bad
@@ -202,7 +216,7 @@
     const { a, ...noA } = copy; // noA => { b: 2, c: 3 }
 ```
 * * * 
-### 数组
+### <a name='arrays'>数组</a>
 * __使用字面量创建对象__
 ```javascript
     // bad
@@ -287,7 +301,7 @@
     });
 ```
 * * *
-### 重构
+### <a name='autoboxing'>自动拆装箱</a>
 * __使用对象的自动拆包__
 ```javascript
     // bad
@@ -341,7 +355,7 @@
     const { left, top } = processInput(input);
 ```
 * * *
-### 字符串
+### <a name='strings'>字符串</a>
 * __对字符串使用单引号`''`__
 ```javascript
     // bad
@@ -401,7 +415,7 @@
     const foo = `my name is '${name}'`;
 ```
 * * *
-### 函数
+### <a name='functions'>函数</a>
 * __函数声明__
 ```javascript
     // 匿名函数表达式
@@ -523,7 +537,7 @@
     };
 ```
 * * *
-### 箭头函数
+### <a name='arrowFunctions'>箭头函数</a>
 * __当你的参数是个函数时可使用箭头函数`Arrow functions`__
 ```javascript
     // bad
@@ -583,7 +597,7 @@
 ```
 * * *
 
-### 类
+### <a name='classes'>类</a>
 * __类初始化使用`constructor`__
 ```javascript
     // bad
@@ -612,7 +626,7 @@
     }
 ```
 * * *
-### 模块
+### <a name='modules'>模块</a>
 * __导入模块时要清晰明了，不要使用`*`__
 ```javascript
 // bad
@@ -681,7 +695,7 @@ export default es6;
     } from 'path';
 ```
 * * *
-### 集合 [immutable](http://facebook.github.io/immutable-js)
+### <a name='collections'>集合</a> [immutable](http://facebook.github.io/immutable-js)
 * __遍历使用 `foreach` / `map`__
 ```javascript
     import Immutable = require('immutable');
@@ -703,7 +717,7 @@ export default es6;
     map2.get('b'); // 50
 ```
 * * *
-### 常用简写
+### <a name='logogram'>常用简写</a>
 * __判断简写__
 ```javascript
     // bad
@@ -750,7 +764,7 @@ export default es6;
     const baz = !c;
 ```
 * * *
-### 格式
+### <a name='format'>格式</a>
 * __代码缩进为2个空格__
 ```javascript
    // bad
@@ -912,7 +926,7 @@ export default es6;
     }());
 ```
 * * *
-### 注释
+### <a name='comments'>注释</a>
 * __方法或类注释使用`/** ... */`__
 ```javascript
     // bad
