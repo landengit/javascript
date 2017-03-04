@@ -1,6 +1,7 @@
 # javascript 规范
 
 ## 目录
+1. [命名](#name)
 1. [格式](#format)
 1. [注释](#comments)
 1. [类型](#types)
@@ -68,6 +69,7 @@
    my-title.js
 ```
 * __名称不要使用关键字__
+
 ### <a name='format'>格式</a>
 * __代码缩进为2个空格__
 ```javascript
