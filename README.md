@@ -1,9 +1,9 @@
 # javascript 规范
 
 ## 目录
-1、[类型](#jump)
+1、[类型](#类型)
 
-### <span name = "jump">类型</span>
+### <span>类型</span>
 * __值类型__
   * `string`
   * `number`
