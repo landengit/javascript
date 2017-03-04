@@ -16,6 +16,19 @@
 1. [集合](#collections)
 1. [常用简写](#logogram)
 
+### <a name='name'>命名</a>
+* __命名要明确，不要太简写__
+```javascript
+   // bad
+   function q() {
+     // ...
+   }
+
+   // good
+   function query() {
+     // ...
+   }
+```
 ### <a name='format'>格式</a>
 * __代码缩进为2个空格__
 ```javascript
