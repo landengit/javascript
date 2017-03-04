@@ -399,6 +399,295 @@
       };
     }
 ```
+* __不要将方法名定义为`arguments`__
+```javascript
+    // bad
+    function foo(name, options, arguments) {
+      // ...
+    }
+
+    // good
+    function foo(name, options, args) {
+      // ...
+    }
+```
+* __不要手动解析`arguments`，使用自动拆包__
+```javascript
+    // bad
+    function concatenateAll() {
+      const args = Array.prototype.slice.call(arguments);
+      return args.join('');
+    }
+
+    // good
+    function concatenateAll(...args) {
+      return args.join('');
+    }
+```
+* __参数必传时，使用默认值__
+```javascript
+    // really bad
+    function handleThings(opts) {
+      // No! We shouldn't mutate function arguments.
+      // Double bad: if opts is falsy it'll be set to an object which may
+      // be what you want but it can introduce subtle bugs.
+      opts = opts || {};
+      // ...
+    }
+
+    // still bad
+    function handleThings(opts) {
+      if (opts === void 0) {
+        opts = {};
+      }
+      // ...
+    }
+
+    // good
+    function handleThings(opts = {}) {
+      // ...
+    }
+```
+* __避免不可控的默认参数__
+```javascript
+    var b = 1;
+    // bad
+    function count(a = b++) {
+      console.log(a);
+    }
+    count();  // 1
+    count();  // 2
+    count(3); // 3
+    count();  // 3
+```
+* __有默认值的参数放最后__
+```javascript
+    // bad
+    function handleThings(opts = {}, name) {
+      // ...
+    }
+
+    // good
+    function handleThings(name, opts = {}) {
+      // ...
+    }
+```
+* __不要使用`Function`来创建方法__
+```javascript
+    // bad
+    var add = new Function('a', 'b', 'return a + b');
+
+    // still bad
+    var subtract = Function('a', 'b', 'return a - b');
+
+    // good
+    var x = function (a, b) {
+        return a + b;
+    };
+```
+* * *
+## 箭头函数
+* __当你的参数是个函数时可使用箭头函数`Arrow functions`__
+```javascript
+    // bad
+    [1, 2, 3].map(number => {
+      const nextNumber = number + 1;
+      `A string containing the ${nextNumber}.`;
+    });
+
+    // good
+    [1, 2, 3].map(number => `A string containing the ${number}.`);
+
+    // good
+    [1, 2, 3].map(number => {
+      const nextNumber = number + 1;
+      return `A string containing the ${nextNumber}.`;
+    });
+```
+* __方法体是多行或者带运算符时，用括号包起来__
+```javascript
+   // bad
+   ['get', 'post', 'put'].map(httpMethod => Object.prototype.hasOwnProperty.call(
+       httpMagicObjectWithAVeryLongName,
+       httpMethod,
+     )
+   );
+
+   // good
+   ['get', 'post', 'put'].map(httpMethod => (
+     Object.prototype.hasOwnProperty.call(
+       httpMagicObjectWithAVeryLongName,
+       httpMethod,
+     )
+   ));
+   
+   // bad
+   const itemHeight = item => item.height > 256 ? item.largeSize : item.smallSize;
+
+   // bad
+   const itemHeight = (item) => item.height > 256 ? item.largeSize : item.smallSize;
+
+   // good
+   const itemHeight = item => (item.height > 256 ? item.largeSize : item.smallSize);
+
+   // good
+   const itemHeight = (item) => {
+     const { height, largeSize, smallSize } = item;
+     return height > 256 ? largeSize : smallSize;
+   };
+```
+* __参数只有一个时，不要使用括号__
+```javascript
+   // bad
+   [1, 2, 3].map((x) => x * x);
+
+   // good
+   [1, 2, 3].map(x => x * x);
+```
+* * *
+
+### 类
+* __类初始化使用`constructor`__
+```javascript
+    // bad
+    [1, 2, 3].map((x) => x * x);
+
+    // good
+    [1, 2, 3].map(x => x * x);
+```
+* __继承使用`extends`__
+```javascript
+    // bad
+    const inherits = require('inherits');
+    function PeekableQueue(contents) {
+      Queue.apply(this, contents);
+    }
+    inherits(PeekableQueue, Queue);
+    PeekableQueue.prototype.peek = function () {
+      return this.queue[0];
+    };
+
+    // good
+    class PeekableQueue extends Queue {
+      peek() {
+        return this.queue[0];
+      }
+    }
+```
+* * *
+### 模块
+* __导入模块时要清晰明了，不要使用`*`__
+```javascript
+// bad
+const AirbnbStyleGuide = require('./AirbnbStyleGuide');
+module.exports = AirbnbStyleGuide.es6;
+
+// bad
+import * as AirbnbStyleGuide from './AirbnbStyleGuide';
+
+// ok
+import AirbnbStyleGuide from './AirbnbStyleGuide';
+export default AirbnbStyleGuide.es6;
+
+// best
+import { es6 } from './AirbnbStyleGuide';
+export default es6;
+```
+* __不要在导入的同时导出__
+```javascript
+    // bad
+    // filename es6.js
+    export { es6 as default } from './AirbnbStyleGuide';
+
+    // good
+    // filename es6.js
+    import { es6 } from './AirbnbStyleGuide';
+    export default es6;
+```
+* __同一模块的导入不要拆开写__
+```javascript
+    // bad
+    import foo from 'foo';
+    // … some other imports … //
+    import { named1, named2 } from 'foo';
+
+    // good
+    import foo, { named1, named2 } from 'foo';
+
+    // good
+    import foo, {
+      named1,
+      named2,
+    } from 'foo';
+```
+* __导入分组放在一起__
+```javascript
+    // 先导入公共依赖，再导入本地模块
+    import React, {Component} from 'react';
+    import {Tabbar} from 'qmkit';
+    import {StoreProvider, msg} from 'iflux2';
+    import AppStore from './store';
+    import Tip from './component/tip';
+```
+* __太长的导入换行__
+```javascript
+    // bad
+    import {longNameA, longNameB, longNameC, longNameD, longNameE} from 'path';
+
+    // good
+    import {
+      longNameA,
+      longNameB,
+      longNameC,
+      longNameD,
+      longNameE,
+    } from 'path';
+```
+* * *
+### 遍历
+* __遍历使用`[immutable](http://facebook.github.io/immutable-js)`__
+```javascript
+    let users = fromJS(param);
+    users.map(user => {});
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
