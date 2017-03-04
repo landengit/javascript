@@ -52,7 +52,7 @@
     const a = 1;
     const b = 2;
 ```
-* __使用let和const来防止越权__
+* __使用let和const来防止变量提升__
 ```javascript
     // const and let only exist in the blocks they are defined in.
     {
@@ -61,6 +61,40 @@
     }
     console.log(a); // ReferenceError
     console.log(b); // ReferenceError
+```
+* __避免多余的变量定义__
+```javascript
+    // bad - unnecessary function call
+    function checkName(hasName) {
+      const name = getName();
+
+      if (hasName === 'test') {
+        return false;
+      }
+
+      if (name === 'test') {
+        this.setName('');
+        return false;
+      }
+
+      return name;
+    }
+
+    // good
+    function checkName(hasName) {
+      if (hasName === 'test') {
+        return false;
+      }
+
+      const name = getName();
+
+      if (name === 'test') {
+        this.setName('');
+        return false;
+      }
+
+      return name;
+    }
 ```
 * * * 
 ## 对象
@@ -644,29 +678,74 @@ export default es6;
     } from 'path';
 ```
 * * *
-### 遍历
-* __遍历使用 [immutable](http://facebook.github.io/immutable-js)__
+### 集合 [immutable](http://facebook.github.io/immutable-js)
+* __遍历使用 `foreach` / `map`__
 ```javascript
-    let users = fromJS(param);
-    users.map(user => {});
+    import Immutable = require('immutable');
+    
+    let map1: Immutable.Map<string, number>;
+    map1 = Immutable.Map({a:1, b:2, c:3});
+    
+    map1.foreach(item => {...});
+    map1.map(item => {...});
 ```
+* __取值/赋值__
+```javascript
+    import Immutable = require('immutable');
+    
+    let map1: Immutable.Map<string, number>;
+    map1 = Immutable.Map({a:1, b:2, c:3});
+    let map2 = map1.set('b', 50);
+    map1.get('b'); // 2
+    map2.get('b'); // 50
+```
+* * *
+### 常用简写
+* __判断简写__
+```javascript
+    // bad
+    if (isValid === true) {
+      // ...
+    }
 
+    // good
+    if (isValid) {
+      // ...
+    }
 
+    // good
+    if (name) {
+      // ...
+    }
 
+    // good
+    if (collection.length) {
+      // ...
+    }
+```
+* __三元表达式__
+```javascript
+    // bad
+    let count = 1;
+    if (isValid) {
+      count = 2;
+    }
 
+    // good
+    let count = isValid ? 2 : 1;
+```
+* __可替代三元表达式的情况__
+```javascript
+    // bad
+    const foo = a ? a : b;
+    const bar = c ? true : false;
+    const baz = c ? false : true;
 
-
-
-
-
-
-
-
-
-
-
-
-
+    // good
+    const foo = a || b;
+    const bar = !!c;
+    const baz = !c;
+```
 
 
 
