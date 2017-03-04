@@ -69,6 +69,16 @@
    my-title.js
 ```
 * __名称不要使用关键字__
+* __不要在代码中使用魔法数字__
+```javascript
+   // bad
+   if(type = 1){}
+   
+   // good
+   const user = 1;
+   const master = 2;
+   if(type == master){}
+```
 
 ### <a name='format'>格式</a>
 * __代码缩进为2个空格__
