@@ -645,7 +645,7 @@ export default es6;
 ```
 * * *
 ### 遍历
-* __遍历使用`[immutable](http://facebook.github.io/immutable-js)`__
+* __遍历使用 [immutable](http://facebook.github.io/immutable-js)__
 ```javascript
     let users = fromJS(param);
     users.map(user => {});
