@@ -1,6 +1,9 @@
 # javascript 规范
 
-### 类型
+## 目录
+1、[类型](#jump)
+
+### <span id = "jump">类型</span>
 * __值类型__
   * `string`
   * `number`
@@ -872,7 +875,7 @@ export default es6;
       console.log(foo);
     }
 ```
-# __参数逗号后跟一个空格，多的参数需要进行换行__
+* __参数逗号后跟一个空格，多的参数需要进行换行__
 ```javascript
     // bad
     getName('landen','li');
@@ -894,7 +897,7 @@ export default es6;
       aTime,
     ];
 ```
-# __每行结尾需用`;`__
+* __每行结尾需用`;`__
 ```javascript
     // bad
     (function () {
