@@ -1,6 +1,8 @@
 # javascript 规范
 
 ## 目录
+1. [格式](#format)
+1. [注释](#comments)
 1. [类型](#types)
 1. [变量及常量](#references)
 1. [对象](#objects)
@@ -13,10 +15,287 @@
 1. [模块](#modules)
 1. [集合](#collections)
 1. [常用简写](#logogram)
-1. [格式](#format)
-1. [注释](#comments)
 
+### <a name='format'>格式</a>
+* __代码缩进为2个空格__
+```javascript
+   // bad
+   function foo() {
+   ∙∙∙∙let name;
+   }
 
+   // bad
+   function bar() {
+   ∙let name;
+   }
+
+   // good
+   function baz() {
+   ∙∙let name;
+   }
+```
+* __主体代码前留1个空格__
+```javascript
+    // bad
+    function test(){
+      console.log('test');
+    }
+
+    // good
+    function test() {
+      console.log('test');
+    }
+
+    // bad
+    dog.set('attr',{
+      age: '1 year',
+      breed: 'Bernese Mountain Dog',
+    });
+
+    // good
+    dog.set('attr', {
+      age: '1 year',
+      breed: 'Bernese Mountain Dog',
+    });
+    
+    // good
+    if(a == 1) {
+      console.log('test');
+    }
+```
+* __运算符两边要留1个空格__
+```javascript
+    // bad
+    const x=y+5;
+
+    // good
+    const x = y + 5;
+```
+* __导入的两边要留1个空格__
+```javascript
+    // bad
+    import {user,goods} from './project';
+    // good
+    import { user, goods } from './project';
+```
+* __太长的链式调用需要换行__
+```javascript
+    // bad
+    $('#items').find('.selected').highlight().end().find('.open').updateCount();
+    
+    // good
+    $('#items')
+      .find('.selected')
+      .highlight()
+      .end()
+      .find('.open')
+      .updateCount();
+```
+* __方法之间留1个空行__
+```javascript
+    // bad
+    const obj = {
+      foo() {
+      },
+      bar() {
+      },
+    };
+    return obj;
+
+    // good
+    const obj = {
+      foo() {
+      },
+
+      bar() {
+      },
+    };
+```
+* __不要留无意义的空行__
+```javascript
+    // bad
+    function bar() {
+
+      console.log(foo);
+
+    }
+
+    // also bad
+    if (baz) {
+
+      console.log(qux);
+    } else {
+      console.log(foo);
+
+    }
+
+    // good
+    function bar() {
+      console.log(foo);
+    }
+
+    // good
+    if (baz) {
+      console.log(qux);
+    } else {
+      console.log(foo);
+    }
+```
+* __参数逗号后跟一个空格，多的参数需要进行换行__
+```javascript
+    // bad
+    getName('landen','li');
+    
+    // good
+    getName('landen', 'li');
+    
+    // bad
+    const story = [
+        once
+      , upon
+      , aTime
+    ];
+
+    // good
+    const story = [
+      once,
+      upon,
+      aTime,
+    ];
+```
+* __每行结尾需用`;`__
+```javascript
+    // bad
+    (function () {
+      const name = 'Skywalker'
+      return name
+    })()
+
+    // good
+    (function () {
+      const name = 'Skywalker';
+      return name;
+    }());
+```
+* * *
+### <a name='comments'>注释</a>
+* __方法或类注释使用`/** ... */`__
+```javascript
+    // bad
+    // make() returns a new element
+    // based on the passed in tag name
+    //
+    // @param {String} tag
+    // @return {Element} element
+    function make(tag) {
+
+      // ...
+
+      return element;
+    }
+
+    // good
+    /**
+     * make() returns a new element
+     * based on the passed-in tag name
+     */
+    function make(tag) {
+
+      // ...
+
+      return element;
+    }
+```
+* __行内注释使用`//`，注释前需与前代码空一行__
+```javascript
+    // bad
+    const active = true;  // is current tab
+
+    // good
+    // is current tab
+    const active = true;
+
+    // bad
+    function getType() {
+      console.log('fetching type...');
+      // set the default type to 'no type'
+      const type = this.type || 'no type';
+
+      return type;
+    }
+
+    // good
+    function getType() {
+      console.log('fetching type...');
+
+      // set the default type to 'no type'
+      const type = this.type || 'no type';
+
+      return type;
+    }
+
+    // also good
+    function getType() {
+      // set the default type to 'no type'
+      const type = this.type || 'no type';
+
+      return type;
+    }
+```
+* __注释前要留2个空格__
+```javascript
+    // bad
+    //is current tab
+    const active = true;
+
+    // good
+    // is current tab
+    const active = true;
+
+    // bad
+    /**
+     *make() returns a new element
+     *based on the passed-in tag name
+     */
+    function make(tag) {
+
+      // ...
+
+      return element;
+    }
+
+    // good
+    /**
+     * make() returns a new element
+     * based on the passed-in tag name
+     */
+    function make(tag) {
+
+      // ...
+
+      return element;
+    }
+```
+* __待完成的使用`TODO`，有问题的使用`FIXME`__
+```javascript
+    class Calculator extends Abacus {
+      constructor() {
+        super();
+
+        // FIXME: shouldn't use a global here
+        total = 0;
+      }
+    }
+    class Calculator extends Abacus {
+      constructor() {
+        super();
+
+        // TODO: total should be configurable by an options param
+        this.total = 0;
+      }
+    }
+```
+* * *
 ### <a name='types'>类型</a>
 * __值类型__
   * `string`
@@ -764,286 +1043,7 @@ export default es6;
     const baz = !c;
 ```
 * * *
-### <a name='format'>格式</a>
-* __代码缩进为2个空格__
-```javascript
-   // bad
-   function foo() {
-   ∙∙∙∙let name;
-   }
 
-   // bad
-   function bar() {
-   ∙let name;
-   }
-
-   // good
-   function baz() {
-   ∙∙let name;
-   }
-```
-* __主体代码前留1个空格__
-```javascript
-    // bad
-    function test(){
-      console.log('test');
-    }
-
-    // good
-    function test() {
-      console.log('test');
-    }
-
-    // bad
-    dog.set('attr',{
-      age: '1 year',
-      breed: 'Bernese Mountain Dog',
-    });
-
-    // good
-    dog.set('attr', {
-      age: '1 year',
-      breed: 'Bernese Mountain Dog',
-    });
-    
-    // good
-    if(a == 1) {
-      console.log('test');
-    }
-```
-* __运算符两边要留1个空格__
-```javascript
-    // bad
-    const x=y+5;
-
-    // good
-    const x = y + 5;
-```
-* __导入的两边要留1个空格__
-```javascript
-    // bad
-    import {user,goods} from './project';
-    // good
-    import { user, goods } from './project';
-```
-* __太长的链式调用需要换行__
-```javascript
-    // bad
-    $('#items').find('.selected').highlight().end().find('.open').updateCount();
-    
-    // good
-    $('#items')
-      .find('.selected')
-      .highlight()
-      .end()
-      .find('.open')
-      .updateCount();
-```
-* __方法之间留1个空行__
-```javascript
-    // bad
-    const obj = {
-      foo() {
-      },
-      bar() {
-      },
-    };
-    return obj;
-
-    // good
-    const obj = {
-      foo() {
-      },
-
-      bar() {
-      },
-    };
-```
-* __不要留无意义的空行__
-```javascript
-    // bad
-    function bar() {
-
-      console.log(foo);
-
-    }
-
-    // also bad
-    if (baz) {
-
-      console.log(qux);
-    } else {
-      console.log(foo);
-
-    }
-
-    // good
-    function bar() {
-      console.log(foo);
-    }
-
-    // good
-    if (baz) {
-      console.log(qux);
-    } else {
-      console.log(foo);
-    }
-```
-* __参数逗号后跟一个空格，多的参数需要进行换行__
-```javascript
-    // bad
-    getName('landen','li');
-    
-    // good
-    getName('landen', 'li');
-    
-    // bad
-    const story = [
-        once
-      , upon
-      , aTime
-    ];
-
-    // good
-    const story = [
-      once,
-      upon,
-      aTime,
-    ];
-```
-* __每行结尾需用`;`__
-```javascript
-    // bad
-    (function () {
-      const name = 'Skywalker'
-      return name
-    })()
-
-    // good
-    (function () {
-      const name = 'Skywalker';
-      return name;
-    }());
-```
-* * *
-### <a name='comments'>注释</a>
-* __方法或类注释使用`/** ... */`__
-```javascript
-    // bad
-    // make() returns a new element
-    // based on the passed in tag name
-    //
-    // @param {String} tag
-    // @return {Element} element
-    function make(tag) {
-
-      // ...
-
-      return element;
-    }
-
-    // good
-    /**
-     * make() returns a new element
-     * based on the passed-in tag name
-     */
-    function make(tag) {
-
-      // ...
-
-      return element;
-    }
-```
-* __行内注释使用`//`，注释前需与前代码空一行__
-```javascript
-    // bad
-    const active = true;  // is current tab
-
-    // good
-    // is current tab
-    const active = true;
-
-    // bad
-    function getType() {
-      console.log('fetching type...');
-      // set the default type to 'no type'
-      const type = this.type || 'no type';
-
-      return type;
-    }
-
-    // good
-    function getType() {
-      console.log('fetching type...');
-
-      // set the default type to 'no type'
-      const type = this.type || 'no type';
-
-      return type;
-    }
-
-    // also good
-    function getType() {
-      // set the default type to 'no type'
-      const type = this.type || 'no type';
-
-      return type;
-    }
-```
-* __注释前要留2个空格__
-```javascript
-    // bad
-    //is current tab
-    const active = true;
-
-    // good
-    // is current tab
-    const active = true;
-
-    // bad
-    /**
-     *make() returns a new element
-     *based on the passed-in tag name
-     */
-    function make(tag) {
-
-      // ...
-
-      return element;
-    }
-
-    // good
-    /**
-     * make() returns a new element
-     * based on the passed-in tag name
-     */
-    function make(tag) {
-
-      // ...
-
-      return element;
-    }
-```
-* __待完成的使用`TODO`，有问题的使用`FIXME`__
-```javascript
-    class Calculator extends Abacus {
-      constructor() {
-        super();
-
-        // FIXME: shouldn't use a global here
-        total = 0;
-      }
-    }
-    class Calculator extends Abacus {
-      constructor() {
-        super();
-
-        // TODO: total should be configurable by an options param
-        this.total = 0;
-      }
-    }
-```
-* * *
 
 
 
