@@ -3,7 +3,7 @@
 ## 目录
 1、[类型](#jump)
 
-### <span id = "jump">类型</span>
+### <span name = "jump">类型</span>
 * __值类型__
   * `string`
   * `number`
