@@ -29,6 +29,45 @@
      // ...
    }
 ```
+* __变量使用驼峰命名法，类名第一个字母大写__
+```javascript
+   // bad
+   const OBJEcttsssss = {};
+   const this_is_my_object = {};
+   function c() {}
+
+   // good
+   const thisIsMyObject = {};
+   function thisIsMyFunction() {}
+
+   // bad
+   function user(options) {
+     this.name = options.name;
+   }
+
+   const bad = new user({
+     name: 'nope',
+   });
+
+   // good
+   class User {
+     constructor(options) {
+       this.name = options.name;
+     }
+   }
+
+   const good = new User({
+     name: 'yup',
+   });
+```
+* __包名、文件名称全小写，单词间用`-`连接__
+```javascript
+   // bad
+   MyTitle.js
+   // good
+   my-title.js
+```
+* __名称不要使用关键字__
 ### <a name='format'>格式</a>
 * __代码缩进为2个空格__
 ```javascript
