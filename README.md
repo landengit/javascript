@@ -1,6 +1,6 @@
 # javascript 规范
 
-## 类型
+### 类型
 * __值类型__
   * `string`
   * `number`
@@ -31,7 +31,7 @@
 ```
 * * *
 
-## 变量及常量
+### 变量及常量
 * __let__
 ```javascript
     // bad
@@ -97,7 +97,7 @@
     }
 ```
 * * * 
-## 对象
+### 对象
 * __使用字面量创建对象__
 ```javascript
     // bad
@@ -199,7 +199,7 @@
     const { a, ...noA } = copy; // noA => { b: 2, c: 3 }
 ```
 * * * 
-## 数组
+### 数组
 * __使用字面量创建对象__
 ```javascript
     // bad
@@ -284,7 +284,7 @@
     });
 ```
 * * *
-## 重构
+### 重构
 * __使用对象的自动拆包__
 ```javascript
     // bad
@@ -338,7 +338,7 @@
     const { left, top } = processInput(input);
 ```
 * * *
-## 字符串
+### 字符串
 * __对字符串使用单引号`''`__
 ```javascript
     // bad
@@ -398,7 +398,7 @@
     const foo = `my name is '${name}'`;
 ```
 * * *
-## 函数
+### 函数
 * __函数声明__
 ```javascript
     // 匿名函数表达式
@@ -520,7 +520,7 @@
     };
 ```
 * * *
-## 箭头函数
+### 箭头函数
 * __当你的参数是个函数时可使用箭头函数`Arrow functions`__
 ```javascript
     // bad
@@ -747,47 +747,166 @@ export default es6;
     const baz = !c;
 ```
 * * *
-### 代码块
-* __格式__
+### 格式
+* __代码缩进为2个空格__
+```javascript
+   // bad
+   function foo() {
+   ∙∙∙∙let name;
+   }
+
+   // bad
+   function bar() {
+   ∙let name;
+   }
+
+   // good
+   function baz() {
+   ∙∙let name;
+   }
+```
+* __主体代码前留1个空格__
 ```javascript
     // bad
-    if (test)
-      return false;
+    function test(){
+      console.log('test');
+    }
 
     // good
-    if (test) return false;
-
-    // good
-    if (test) {
-      return false;
+    function test() {
+      console.log('test');
     }
 
     // bad
-    function foo() { doSomeThing();return false; }
+    dog.set('attr',{
+      age: '1 year',
+      breed: 'Bernese Mountain Dog',
+    });
+
+    // good
+    dog.set('attr', {
+      age: '1 year',
+      breed: 'Bernese Mountain Dog',
+    });
+    
+    // good
+    if(a == 1) {
+      console.log('test');
+    }
+```
+* __运算符两边要留1个空格__
+```javascript
+    // bad
+    const x=y+5;
+
+    // good
+    const x = y + 5;
+```
+* __导入的两边要留1个空格__
+```javascript
+    // bad
+    import {user,goods} from './project';
+    // good
+    import { user, goods } from './project';
+```
+* __太长的链式调用需要换行__
+```javascript
+    // bad
+    $('#items').find('.selected').highlight().end().find('.open').updateCount();
+    
+    // good
+    $('#items')
+      .find('.selected')
+      .highlight()
+      .end()
+      .find('.open')
+      .updateCount();
+```
+* __方法之间留1个空行__
+```javascript
+    // bad
+    const obj = {
+      foo() {
+      },
+      bar() {
+      },
+    };
+    return obj;
+
+    // good
+    const obj = {
+      foo() {
+      },
+
+      bar() {
+      },
+    };
+```
+* __不要留无意义的空行__
+```javascript
+    // bad
+    function bar() {
+
+      console.log(foo);
+
+    }
+
+    // also bad
+    if (baz) {
+
+      console.log(qux);
+    } else {
+      console.log(foo);
+
+    }
 
     // good
     function bar() {
-      doSomeThing();
-      return false;
-    }
-    
-    // bad
-    if (test) {
-      thing1();
-      thing2();
-    }
-    else {
-      thing3();
+      console.log(foo);
     }
 
     // good
-    if (test) {
-      thing1();
-      thing2();
+    if (baz) {
+      console.log(qux);
     } else {
-      // else 注释写在这
-      thing3();
+      console.log(foo);
     }
+```
+# __参数逗号后跟一个空格，多的参数需要进行换行__
+```javascript
+    // bad
+    getName('landen','li');
+    
+    // good
+    getName('landen', 'li');
+    
+    // bad
+    const story = [
+        once
+      , upon
+      , aTime
+    ];
+
+    // good
+    const story = [
+      once,
+      upon,
+      aTime,
+    ];
+```
+# __每行结尾需用`;`__
+```javascript
+    // bad
+    (function () {
+      const name = 'Skywalker'
+      return name
+    })()
+
+    // good
+    (function () {
+      const name = 'Skywalker';
+      return name;
+    }());
 ```
 * * *
 ### 注释
