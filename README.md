@@ -16,6 +16,7 @@
 1. [模块](#modules)
 1. [集合](#collections)
 1. [常用简写](#logogram)
+1. [immutable](#immutable)
 
 ### <a name='name'>命名</a>
 * __命名要明确，不要太简写__
@@ -1107,6 +1108,129 @@ export default es6;
     const baz = !c;
 ```
 * * *
+### <a name='immutable'>immutable</a>
+* __初始化__
+```javascript
+    // list
+    const list = List();
+    const list = List([1, 2, 3]);
+
+    // map
+    const map = Map();
+    const map = Map({a: 1, b: 2});
+    
+    // 转换后map的key为string类型，获取值需要get('...')
+    const a = map.get('a');
+
+```
+* __转换__
+```javascript
+    // 
+    const list = [1, 2, 3];
+    const map = {a: 1, b: 2};
+    
+    // 方法1
+    const immutable_list = List(list);
+    const immutable_map = Map(map);
+    
+    // 方法2
+    const immutable_list = fromJS(list);
+    const immutable_map = fromJS(map);
+
+    // 负责类型时推荐使用方法2，方法1转换时只会转换最外层，内层还是原类型
+    const map = {a: 1, b: 2, c: [1, 2]};
+    const immutable_map = Map(map);
+    const immutable_map2 = fromJS(map);
+    console.log(immutable_map.get('c')); // [1, 2]
+    console.log(immutable_map2.get('c'));// List {size: 2, _origin: 0, _capacity: 2, _level: 5, _root: null…}
+    
+```
+* __在何时转换：推荐在store转换，保证actor和组件接触到的值都是inmmutable类型__
+* __获取长度__
+```javascript
+    
+    const list = List([1, 2, 3]);
+    const map = Map({a: 1, b: 2, c: 3});
+    
+    // bad
+    const count = list.size;
+    const count = map.size;
+
+    // good
+    const count = list.count();
+    const count = map.count();
+```
+* __获取多层内容__
+```javascript
+    
+    const map = fromJS({a: 1, b: 2, c: {d: 3, e: 4}});
+    
+    // bad
+    const d = map.get('c').get('d');
+
+    // good
+    const d = map.getIn(['c', 'd']);
+```
+* __修改值__
+```javascript
+    
+    const list = List([1, 2, 3]);
+    const map = Map({a: 1, b: 2, c: 3});
+    
+    // good
+    let list = list.set(0, 10);
+    let map = map.set('a', 10);
+    
+    // good
+    let list= list.update(0, value => value * value);
+    let map = map.update('a', value => value * value);
+
+```
+* __修改多层级的值__
+```javascript
+
+    const map = fromJS({a: 1, b: 2, c: {d: 3, e: 4}});
+    
+    // good
+    let map = map.updateIn(['c','d'], 10);
+
+```
+* __操作都是不可变__
+```javascript
+
+    const list = List([1, 2, 3]);
+
+    list.push(4);
+    list.push(5);
+    list.push(6);
+    console.log(list.toJS()); // [1, 2, 3]
+
+    list = list.push(4);
+    list = list.push(5);
+    list = list.push(6);
+    console.log(list.toJS()); // [1, 2, 3, 4, 5, 6]
+    
+```
+* __遍历__
+```javascript
+
+    const list = List([1, 2, 3]);
+    const map = Map({a: 1, b: 2, c: 3});
+
+    // bad
+    for(let i = 0; i < list.count(); i++){
+      ...
+    }
+
+    // good
+    list.forEach(item => {
+      ....
+    })
+    
+    map.forEach((value, key) => {
+      ...
+    })
+```
 
 
 
